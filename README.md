@@ -30,14 +30,12 @@ git clone <repository-url>
 cd <repository-directory>
 
 ## streamlit installation:
-```bash
+
 pip install streamlit
 
 ## Set Up the Knowledge Base:
 Ensure you have a 'knowledge_base.json file' in the project directory with the following structure:
-('___')
 
-```bash
 {
   "courses": [
     {
