@@ -10,6 +10,17 @@ This README provides an overview of the custom chatbot designed for PSNA College
 - **Administrative Staff Details**: Provides information about the administrative staff, including contact details and roles.
 - **Knowledge Base**: The chatbot uses a knowledge base that can be updated with new information as needed.
 
+## Tech Stack Used
+
+- **Python**: Core programming language for developing the chatbot.
+- **Streamlit**: Framework used to create the web application.
+- **JSON**: Format for storing the knowledge base data.
+- **Difflib**: Python library for finding the closest matches to user questions.
+- **NLTK**: Natural Language Toolkit for advanced language processing.
+- **XML**: Format for UiPath service integration.
+
+---
+
 ## Prerequisites
 
 ### Software Requirements
@@ -61,16 +72,6 @@ streamlit run app.py
 ## Interact with the Chatbot
 Open the web browser and navigate to the local URL provided by Streamlit (usually http://localhost:8501).
 
-## Tech Stack Used
-
-- **Python**: Core programming language for developing the chatbot.
-- **Streamlit**: Framework used to create the web application.
-- **JSON**: Format for storing the knowledge base data.
-- **Difflib**: Python library for finding the closest matches to user questions.
-- **NLTK**: Natural Language Toolkit for advanced language processing.
-- **XML**: Format for UiPath service integration.
-
----
 
 Contact
 For further assistance, please contact:
