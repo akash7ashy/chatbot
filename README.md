@@ -53,6 +53,13 @@ Ensure you have a 'knowledge_base.json file' in the project directory with the f
   ]
 }
 
+## Usage
+## Run the Chatbot
+Use Streamlit to run the chatbot application:
+streamlit run app.py
+
+## Interact with the Chatbot
+Open the web browser and navigate to the local URL provided by Streamlit (usually http://localhost:8501).
 
 
 
