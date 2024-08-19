@@ -61,6 +61,12 @@ streamlit run app.py
 ## Interact with the Chatbot
 Open the web browser and navigate to the local URL provided by Streamlit (usually http://localhost:8501).
 
+Contact
+For further assistance, please contact:
+
+Support Team: 13r.akash@gmail.com
+Technical Contact: 13r.akash@gmail.com
+
 
 
 
