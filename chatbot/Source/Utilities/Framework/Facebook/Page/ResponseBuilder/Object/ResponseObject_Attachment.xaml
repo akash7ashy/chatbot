@@ -1,0 +1,158 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ResponseObject_Attachment" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_MessageObject" Type="OutArgument(njl:JObject)" />
+    <x:Property Name="in_Attachment" Type="InArgument(njl:JObject)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>709,1777</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ResponseObject_Attachment_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="With the Attachment Object generated either from the Template or Custom, generate an Message Object which is inline with Facebook Send API request format.&#xA;&#xA;Parses the following types of attachment:&#xA;- Image&#xA;- Video&#xA;- Audio&#xA;- File&#xA;&#xA;Input:&#xA;- Attachment (JObject) - Object generated either by the Template or Custom.&#xA;&#xA;Output&#xA;- MessageObject (JObject) - Facebook Send API Message payload for Attachment." DisplayName="ResponseObject_Attachment" sap:VirtualizedContainerService.HintSize="689,1717" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="ResponseObject_Attachment" sap:VirtualizedContainerService.HintSize="647,1403" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Init MessageObject" sap:VirtualizedContainerService.HintSize="605,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="njl:JObject">[out_MessageObject]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="njl:JObject">[New JObject]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Sequence DisplayName="Set Attachment" sap:VirtualizedContainerService.HintSize="605,1211" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="njl:JObject" Default="[New JObject]" Name="AttachmentObject" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <InvokeMethod DisplayName="Add ResponseType" sap:VirtualizedContainerService.HintSize="563,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Add">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="njl:JObject">[AttachmentObject]</InArgument>
+          </InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="x:String">type</InArgument>
+          <InArgument x:TypeArguments="njl:JToken">[in_Attachment("type").ToString]</InArgument>
+        </InvokeMethod>
+        <Sequence DisplayName="Payload" sap:VirtualizedContainerService.HintSize="563,775" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="njl:JObject" Name="PayloadObject" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Assign PayloadObject" sap:VirtualizedContainerService.HintSize="521,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="njl:JObject">[PayloadObject]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="njl:JObject">[New JObject]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If Condition="[in_Attachment.ContainsKey(&quot;attachment_id&quot;)]" DisplayName="If AttachmentID" sap:VirtualizedContainerService.HintSize="521,280" sap2010:WorkflowViewState.IdRef="If_1">
+            <If.Then>
+              <InvokeMethod DisplayName="Add AttachmentID" sap:VirtualizedContainerService.HintSize="238,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Add">
+                <InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="njl:JObject">[PayloadObject]</InArgument>
+                </InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="x:String">attachment_id</InArgument>
+                <InArgument x:TypeArguments="njl:JToken">[in_Attachment("attachment_id").ToString]</InArgument>
+              </InvokeMethod>
+            </If.Then>
+            <If.Else>
+              <InvokeMethod DisplayName="Add Url" sap:VirtualizedContainerService.HintSize="238,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Add">
+                <InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="njl:JObject">[PayloadObject]</InArgument>
+                </InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="x:String">url</InArgument>
+                <InArgument x:TypeArguments="njl:JToken">[in_Attachment("url").ToString]</InArgument>
+              </InvokeMethod>
+            </If.Else>
+          </If>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="521,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[PayloadObject]" />
+          <InvokeMethod DisplayName="Add ResponseType" sap:VirtualizedContainerService.HintSize="521,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Add">
+            <InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="njl:JObject">[AttachmentObject]</InArgument>
+            </InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="x:String">payload</InArgument>
+            <InArgument x:TypeArguments="njl:JToken">[PayloadObject]</InArgument>
+          </InvokeMethod>
+        </Sequence>
+        <InvokeMethod DisplayName="Add ResponseType" sap:VirtualizedContainerService.HintSize="563,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="Add">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="njl:JObject">[out_MessageObject]</InArgument>
+          </InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="x:String">attachment</InArgument>
+          <InArgument x:TypeArguments="njl:JToken">[AttachmentObject]</InArgument>
+        </InvokeMethod>
+      </Sequence>
+    </Sequence>
+  </Sequence>
+</Activity>

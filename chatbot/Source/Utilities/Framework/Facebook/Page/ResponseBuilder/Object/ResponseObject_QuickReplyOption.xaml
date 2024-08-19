@@ -1,0 +1,182 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ResponseObject_QuickReplyOption" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_MessageObject" Type="OutArgument(njl:JObject)" />
+    <x:Property Name="in_Text" Type="InArgument(x:String)" />
+    <x:Property Name="in_Options" Type="InArgument(scg:List(njl:JObject))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>666,2329</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ResponseObject_QuickReplyOption_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="This is specific for Quick Reply Template Response.&#xD;&#xA;&#xD;&#xA;With the Quick Reply generated either from the Template or Custom, generate an Message Object which is inline with Facebook Send API request format. Also, the options are also formatted in accordance with the FacebookSend API request format.&#xD;&#xA;&#xD;&#xA; generate a List of Objects containing the Quick Reply Payloads specific for Send API Request. &#xA;&#xD;&#xA;If an Option is set to HIDDEN, option is not shown to the user. However, can still be triggered when user has input a correct name.&#xD;&#xA;&#xA;Parses each of the following option types:&#xA;- text&#xD;&#xA;&#xA;Input:&#xD;&#xA;- Text (String)&#xA;- Options (List&lt;JObject&gt;) - List of options generated either by the Template or Custom.&#xA;&#xA;Output&#xA;- MessageObject (JObject) - Facebook Send API Message payload for QuickReply Template.&#xA;" DisplayName="ResponseObject_QuickReplyOption" sap:VirtualizedContainerService.HintSize="646,2269" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign DisplayName="Init MessageObject" sap:VirtualizedContainerService.HintSize="604,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="njl:JObject">[out_MessageObject]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="njl:JObject">[New JObject]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <InvokeMethod DisplayName="Add Text" sap:VirtualizedContainerService.HintSize="604,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Add">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="njl:JObject">[out_MessageObject]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">text</InArgument>
+      <InArgument x:TypeArguments="njl:JToken">[in_Text]</InArgument>
+    </InvokeMethod>
+    <Sequence DisplayName="Set Options" sap:VirtualizedContainerService.HintSize="604,1578" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="njl:JObject" Name="QRObject" />
+        <Variable x:TypeArguments="scg:List(njl:JObject)" Name="QROptions" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign QROptions" sap:VirtualizedContainerService.HintSize="562,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(njl:JObject)">[QROptions]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(njl:JObject)">[New List(Of JObject)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEach x:TypeArguments="njl:JObject" CurrentIndex="{x:Null}" DisplayName="For Each Option" sap:VirtualizedContainerService.HintSize="562,1214" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_Options]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="njl:JObject">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="njl:JObject" Name="IO" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body - IO" sap:VirtualizedContainerService.HintSize="526,1080" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If Condition="[Not Convert.ToBoolean(IO(&quot;hidden&quot;).ToString)]" DisplayName="If Hidden" sap:VirtualizedContainerService.HintSize="484,988" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Then>
+                  <Sequence DisplayName="Set Option" sap:VirtualizedContainerService.HintSize="304,840" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Assign QRObject" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="njl:JObject">[QRObject]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="njl:JObject">[New JObject]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <InvokeMethod DisplayName="Add Type" sap:VirtualizedContainerService.HintSize="262,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Add">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="njl:JObject">[QRObject]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="x:String">content_type</InArgument>
+                      <InArgument x:TypeArguments="njl:JToken">[IO("type").ToString]</InArgument>
+                    </InvokeMethod>
+                    <InvokeMethod DisplayName="Add Title" sap:VirtualizedContainerService.HintSize="262,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Add">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="njl:JObject">[QRObject]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="x:String">title</InArgument>
+                      <InArgument x:TypeArguments="njl:JToken">[IO("title").ToString]</InArgument>
+                    </InvokeMethod>
+                    <InvokeMethod DisplayName="Add Payload" sap:VirtualizedContainerService.HintSize="262,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Add">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="njl:JObject">[QRObject]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="x:String">payload</InArgument>
+                      <InArgument x:TypeArguments="njl:JToken">[IO("payload").ToString]</InArgument>
+                    </InvokeMethod>
+                    <InvokeMethod DisplayName="Add to List" sap:VirtualizedContainerService.HintSize="262,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="Add">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="scg:List(njl:JObject)">[QROptions]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[QRObject]</InArgument>
+                    </InvokeMethod>
+                  </Sequence>
+                </If.Then>
+              </If>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEach>
+      <InvokeMethod DisplayName="Add Options" sap:VirtualizedContainerService.HintSize="562,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Add">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="njl:JObject">[out_MessageObject]</InArgument>
+        </InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="x:String">quick_replies</InArgument>
+        <InArgument x:TypeArguments="njl:JToken">[New JArray(QROptions)]</InArgument>
+      </InvokeMethod>
+    </Sequence>
+  </Sequence>
+</Activity>

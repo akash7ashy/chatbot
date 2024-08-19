@@ -1,0 +1,627 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ResponseTemplateValidator" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Responses" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_ResponseOptions" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_Displays" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1650,4444</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ResponseTemplateValidator_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Validates each response's configurations. &#xA;&#xA;Each response must satisfy the conditions set on the logic and Config file's Default sheet.&#xA;&#xA;If invalidated, robot will throw a SYSTEM ERROR indicating a custom message set on each invalidated response&#xD;&#xA;&#xD;&#xA;Input:&#xD;&#xA;- Config (Dictionary&lt;String,Object&gt;)&#xD;&#xA;- Responses (DataTable)&#xD;&#xA;- ResponseOptions (DataTable)&#xD;&#xA;- Displays (DataTable)" DisplayName="ResponseTemplateValidator" sap:VirtualizedContainerService.HintSize="1630,4384" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_Responses]" DisplayName="For Each Row of Responses" sap:VirtualizedContainerService.HintSize="1588,4115" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="Response" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body - Response" sap:VirtualizedContainerService.HintSize="1538,3967" sap2010:WorkflowViewState.IdRef="Sequence_34">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1496,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Validating session &quot; + Response(&quot;SessionName&quot;).ToString]" />
+            <Sequence DisplayName="Validate Duplicate Sesssions" sap:VirtualizedContainerService.HintSize="1496,66" sap2010:WorkflowViewState.IdRef="Sequence_19">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="sd:DataRow[]" Name="SessionResponse" />
+                <Variable x:TypeArguments="x:String" Name="AcceptTypes" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign Session Response" sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="sd:DataRow[]">[SessionResponse]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="sd:DataRow[]">[in_Responses.Select("["+in_Responses.Columns(0).ColumnName+"]='"+Response("SessionName").ToString+"'")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[SessionResponse.Count &gt; 1]" DisplayName="If SessionResponse &gt; 1" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_11">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Throw DisplayName="Throw MultipleSessioName" Exception="[New SystemException(&quot;There could only be 1 session name: &quot; + Response(&quot;SessionName&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_12" />
+                </If.Then>
+              </If>
+            </Sequence>
+            <Sequence DisplayName="Validate Accept Types" sap:VirtualizedContainerService.HintSize="1496,343" sap2010:WorkflowViewState.IdRef="Sequence_21">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="s:String[]" Name="ResponseAcceptTypes" />
+                <Variable x:TypeArguments="s:String[]" Default="[{}]" Name="ValidAcceptTypes" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign AcceptTypes" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[ResponseAcceptTypes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[Response("AcceptType").ToString.Split(","c)]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Assign ValidAcceptTypes" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[ValidAcceptTypes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[in_Config("ValidAcceptTypes").ToString.Split(","c)]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[ResponseAcceptTypes.Count &gt; 0]" DisplayName="If ResponseAcceptTypes Empty" sap:VirtualizedContainerService.HintSize="242,51" sap2010:WorkflowViewState.IdRef="If_13">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each ResponseAcceptTypes" sap:VirtualizedContainerService.HintSize="502,466" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[ResponseAcceptTypes]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="RAT" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body - RAT" sap:VirtualizedContainerService.HintSize="486,332" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[ValidAcceptTypes.Contains(RAT)]" DisplayName="If RAT in ValidAcceptTypes" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_12">
+                            <If.Else>
+                              <Throw DisplayName="Throw AcceptTypeNotFound" Exception="[New SystemException(&quot;Accept Types in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; is not valid. Please refer to remarks for valid accept types&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_13" />
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                </If.Then>
+                <If.Else>
+                  <Throw DisplayName="Throw EmptyAcceptTypes" Exception="[New SystemException(&quot;Accept Type of Session &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty. Please refer to Remarks for valid accept types&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_14" />
+                </If.Else>
+              </If>
+            </Sequence>
+            <Sequence DisplayName="Validate Response Text" sap:VirtualizedContainerService.HintSize="1496,51" sap2010:WorkflowViewState.IdRef="Sequence_26">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="s:String[]" Name="ResponseTextList" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign AcceptTypes" sap:VirtualizedContainerService.HintSize="739,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[ResponseTextList]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[Response("ResponseText").ToString.Split(","c)]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[ResponseTextList.Count &gt; 0]" DisplayName="If ResponseAcceptTypes Empty" sap:VirtualizedContainerService.HintSize="739,666" sap2010:WorkflowViewState.IdRef="If_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each ResponseTexts" sap:VirtualizedContainerService.HintSize="514,518" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[ResponseTextList]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="RT" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body - RT" sap:VirtualizedContainerService.HintSize="498,384" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="sd:DataRow[]" Name="DisplayTexts" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign DisplayName="Assign DisplayTexts" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="sd:DataRow[]">[DisplayTexts]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="sd:DataRow[]">[in_Displays.Select("["+in_Displays.Columns(0).ColumnName+"]='"+RT+"'")]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <Switch x:TypeArguments="x:Int32" DisplayName="Switch DisplayTexts Count" Expression="[DisplayTexts.Count]" sap:VirtualizedContainerService.HintSize="476,160" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                            <Switch.Default>
+                              <Sequence DisplayName="More than 1" sap:VirtualizedContainerService.HintSize="222,146" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Throw DisplayName="Throw DuplicateDisplayTexts" Exception="[New SystemException(&quot;Response Text of Session &quot; + Response(&quot;SessionName&quot;).ToString + &quot; in Display Sheet must be unique and not duplicated.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_17" />
+                              </Sequence>
+                            </Switch.Default>
+                            <Sequence x:Key="0" DisplayName="Empty" sap:VirtualizedContainerService.HintSize="222,146" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Throw DisplayName="Throw EmptyDisplayText" Exception="[New SystemException(&quot;Response Text of Session &quot; + Response(&quot;SessionName&quot;).ToString + &quot; in Display Sheet must not be empty.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_15" />
+                            </Sequence>
+                            <Sequence x:Key="1" DisplayName="Correct Amount of DisplayTexts" sap:VirtualizedContainerService.HintSize="486,426" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="x:String" Name="DisplayText" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign DisplayName="Assign DisplayText" sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[DisplayText]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[DisplayTexts(0)("Value").ToString]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <If Condition="[String.IsNullOrEmpty(DisplayText) Or String.IsNullOrWhiteSpace(DisplayText) Or Len(DisplayText) &gt; cint(in_Config(&quot;ResponseTextLimit&quot;).ToString)]" DisplayName="If DisplayText Length is above 500" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_14">
+                                <If.Then>
+                                  <Throw DisplayName="Throw MaximumLimitError" Exception="[New SystemException(&quot;Display Text Value of Session &quot; + Response(&quot;SessionName&quot;).ToString + &quot; in Display Sheet must not be empty or not reach the allowed limit of &quot; + in_Config(&quot;ResponseTextLimit&quot;).ToString )]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_16" />
+                                </If.Then>
+                              </If>
+                            </Sequence>
+                          </Switch>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                </If.Then>
+                <If.Else>
+                  <Throw DisplayName="Throw EmptyResponseTexts" Exception="[New SystemException(&quot;Response Text of Session &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_18" />
+                </If.Else>
+              </If>
+            </Sequence>
+            <Sequence DisplayName="Validate Response Type" sap:VirtualizedContainerService.HintSize="1496,51" sap2010:WorkflowViewState.IdRef="Sequence_27">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="ResponseType" />
+                <Variable x:TypeArguments="s:String[]" Default="[{&quot;text&quot;,&quot;quick_reply&quot;,&quot;button&quot;,&quot;audio&quot;,&quot;image&quot;,&quot;file&quot;}]" Name="ValidResponseTypes" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign AcceptTypes" sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ResponseType]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Response("ResponseType").ToString]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Assign ValidAcceptTypes" sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[ValidResponseTypes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[in_Config("ValidResponseTypes").ToString.Split(","c)]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[ValidResponseTypes.Contains(ResponseType)]" DisplayName="If Responstype in ValidResponseTypes" sap:VirtualizedContainerService.HintSize="242,51" sap2010:WorkflowViewState.IdRef="If_16">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Else>
+                  <Throw DisplayName="Throw ResponseTypeNotFound" Exception="[New SystemException(&quot;Response Type in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; is not valid. Please refer to remarks for valid response types&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_19" />
+                </If.Else>
+              </If>
+            </Sequence>
+            <Sequence DisplayName="Validate Response Options" sap:VirtualizedContainerService.HintSize="1496,3073" sap2010:WorkflowViewState.IdRef="Sequence_33">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="s:String[]" Name="ResponseWithOptions" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign ResponseWithOptions" sap:VirtualizedContainerService.HintSize="1474,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[ResponseWithOptions]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[in_Config("ResponseWithOptions").ToString.Split(","c)]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[ResponseWithOptions.Contains(Response(&quot;ResponseType&quot;).ToString)]" DisplayName="If ResponseType is in ResponseWithOptions" sap:VirtualizedContainerService.HintSize="1474,2849" sap2010:WorkflowViewState.IdRef="If_20">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Sequence DisplayName="Responses With Options" sap:VirtualizedContainerService.HintSize="1349,2701" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="sd:DataRow[]" Name="ResponseOptions" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Assign ResponseOptions" sap:VirtualizedContainerService.HintSize="1327,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="sd:DataRow[]">[ResponseOptions]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="sd:DataRow[]">[in_ResponseOptions.Select("["+in_ResponseOptions.Columns(0).ColumnName+"]='"+Response("SessionName").ToString+"'")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <If Condition="[ResponseOptions.Count &gt; 0]" DisplayName="If ResponseOptions &gt; 0" sap:VirtualizedContainerService.HintSize="1327,2477" sap2010:WorkflowViewState.IdRef="If_19">
+                      <If.Then>
+                        <Sequence DisplayName="With ResponseOptions" sap:VirtualizedContainerService.HintSize="1102,2329" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="s:String[]" Default="[{&quot;text&quot;,&quot;image&quot;}]" Name="ValidOptionTypes" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For Each Option" sap:VirtualizedContainerService.HintSize="1080,2205" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[ResponseOptions]">
+                            <ui:ForEach.Body>
+                              <ActivityAction x:TypeArguments="sd:DataRow">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="RO" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Body - RO" sap:VirtualizedContainerService.HintSize="1064,2071" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Sequence DisplayName="Validate Title" sap:VirtualizedContainerService.HintSize="1042,51" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <If Condition="[String.IsNullOrEmpty(RO(&quot;Title&quot;).ToString) Or  Len(RO(&quot;Title&quot;).ToString) &gt; cint(in_Config(&quot;ResponseOptionTitleLimit&quot;).ToString)]" DisplayName="If Option Title Not Empty and Not Above Limit" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_18">
+                                      <If.Then>
+                                        <Throw DisplayName="Throw EmptyOrMaxTitle" Exception="[New SystemException(&quot;Response Options' Title in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty nor exceed the maximum length of &quot; + in_Config(&quot;ResponseOptionTitleLimit&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_21" />
+                                      </If.Then>
+                                    </If>
+                                  </Sequence>
+                                  <Switch x:TypeArguments="x:String" DisplayName="Switch ResponseType" Expression="[Response(&quot;ResponseType&quot;).ToString]" sap:VirtualizedContainerService.HintSize="1042,1765" sap2010:WorkflowViewState.IdRef="Switch`1_3">
+                                    <Switch.Default>
+                                      <Sequence DisplayName="Validate QuickReply" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <Sequence DisplayName="Validate QuickReplyOptionTypes" sap:VirtualizedContainerService.HintSize="486,432" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <Assign DisplayName="Assign ValidOptionTypes" sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="s:String[]">[ValidOptionTypes]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="s:String[]">[in_Config("ValidQuickReplyOptionTypes").ToString.Split(","c)]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <If Condition="[ValidOptionTypes.Contains(RO(&quot;Type&quot;).ToString)]" DisplayName="If OptionType in ValidOptionTypes" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_21">
+                                            <If.Else>
+                                              <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option Type in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be among the valid quick reply option types. Please refer to Remarks sheet for valid quick reply option types&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_23" />
+                                            </If.Else>
+                                          </If>
+                                        </Sequence>
+                                      </Sequence>
+                                    </Switch.Default>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <Sequence x:Key="button" DisplayName="Validate Button" sap:VirtualizedContainerService.HintSize="1022,1581" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <Sequence DisplayName="Validate ButtonOptionTypes" sap:VirtualizedContainerService.HintSize="1000,1457" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <Assign DisplayName="Assign ValidOptionTypes" sap:VirtualizedContainerService.HintSize="978,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="s:String[]">[ValidOptionTypes]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="s:String[]">[in_Config("ValidButtonOptionTypes").ToString.Split(","c)]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <If Condition="[ValidOptionTypes.Contains(RO(&quot;Type&quot;).ToString)]" DisplayName="If OptionType in ValidOptionTypes" sap:VirtualizedContainerService.HintSize="978,1233" sap2010:WorkflowViewState.IdRef="If_17">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <If.Then>
+                                            <Switch x:TypeArguments="x:String" DisplayName="Switch Button OptionType" Expression="[RO(&quot;Type&quot;).ToString]" sap:VirtualizedContainerService.HintSize="753,1085" sap2010:WorkflowViewState.IdRef="Switch`1_4">
+                                              <Switch.Default>
+                                                <Sequence DisplayName="Validate Button Postback" sap:VirtualizedContainerService.HintSize="200,99" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                </Sequence>
+                                              </Switch.Default>
+                                              <Sequence x:Key="web_url" DisplayName="Validate Button WEB URL" sap:VirtualizedContainerService.HintSize="733,901" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Sequence DisplayName="Validate Webview Url" sap:VirtualizedContainerService.HintSize="711,51" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <If Condition="[(String.IsNullOrEmpty(RO(&quot;WebviewUrl&quot;).ToString) Or String.IsNullOrWhiteSpace(RO(&quot;WebviewUrl&quot;).ToString)) Or Not RO(&quot;WebviewUrl&quot;).ToString.ToLower.Contains(&quot;https://&quot;)]" DisplayName="If Empty or Not HTTPS" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_23">
+                                                    <If.Then>
+                                                      <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option web url in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty and must be a secured web url.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_25" />
+                                                    </If.Then>
+                                                  </If>
+                                                </Sequence>
+                                                <Sequence DisplayName="Validate MessengerExtension" sap:VirtualizedContainerService.HintSize="711,595" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                                  <Sequence.Variables>
+                                                    <Variable x:TypeArguments="s:String[]" Default="[{&quot;true&quot;,&quot;false&quot;}]" Name="ValidMessengerExtension" />
+                                                  </Sequence.Variables>
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <If Condition="[Not ValidMessengerExtension.Contains(RO(&quot;MessengerExtension&quot;).ToString.ToLower)]" DisplayName="If Not ValidEnabled" sap:VirtualizedContainerService.HintSize="689,471" sap2010:WorkflowViewState.IdRef="If_25">
+                                                    <If.Then>
+                                                      <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option MessengerExtension  in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be among the valid boolean TRUE or FALSE.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_27" />
+                                                    </If.Then>
+                                                    <If.Else>
+                                                      <If Condition="[Convert.ToBoolean(RO(&quot;MessengerExtension&quot;).ToString)]" DisplayName="If MessengerExtension is True" sap:VirtualizedContainerService.HintSize="464,323" sap2010:WorkflowViewState.IdRef="If_27">
+                                                        <If.Then>
+                                                          <Sequence DisplayName="Validate Fallback Url" sap:VirtualizedContainerService.HintSize="222,175" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                            <If Condition="[(Not String.IsNullOrEmpty(RO(&quot;WebviewUrl&quot;).ToString) And Not String.IsNullOrWhiteSpace(RO(&quot;WebviewUrl&quot;).ToString)) And Not RO(&quot;WebviewUrl&quot;).ToString.ToLower.Contains(&quot;https://&quot;)]" DisplayName="If Not Empty and Not HTTPS" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_26">
+                                                              <sap:WorkflowViewStateService.ViewState>
+                                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                                </scg:Dictionary>
+                                                              </sap:WorkflowViewStateService.ViewState>
+                                                              <If.Then>
+                                                                <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option fallback web url in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty and must be a secured web url.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_28" />
+                                                              </If.Then>
+                                                            </If>
+                                                          </Sequence>
+                                                        </If.Then>
+                                                      </If>
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                                <Sequence DisplayName="Validate Webview Size Ratio" sap:VirtualizedContainerService.HintSize="711,51" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                                                  <Sequence.Variables>
+                                                    <Variable x:TypeArguments="s:String[]" Name="ValidWebviewSizeRatio" />
+                                                  </Sequence.Variables>
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Assign DisplayName="Assign ValidWebviewSizeRatio" sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="s:String[]">[ValidWebviewSizeRatio]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="s:String[]">[in_Config("ValidWebviewSizeRatio").ToString.Split(","c)]</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                  <If Condition="[ValidWebviewSizeRatio.Contains(RO(&quot;WebviewSizeRatio&quot;).ToString)]" DisplayName="If Webview Size Ratio Not In ValidWebviewSizeRatio" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_22">
+                                                    <If.Else>
+                                                      <Throw DisplayName="Throw InvalidWebviewSizeRatio" Exception="[New SystemException(&quot;Response Option Webview Size Ratio in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be among the valid webview size ratio. Please refer to Remarks sheet for valid webview size ratio&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_24" />
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                              </Sequence>
+                                            </Switch>
+                                          </If.Then>
+                                          <If.Else>
+                                            <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option Type in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be among the valid button option types. Please refer to Remarks sheet for valid button option types&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_20" />
+                                          </If.Else>
+                                        </If>
+                                      </Sequence>
+                                    </Sequence>
+                                  </Switch>
+                                  <Sequence DisplayName="Validate Enabled" sap:VirtualizedContainerService.HintSize="1042,51" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                                    <Sequence.Variables>
+                                      <Variable x:TypeArguments="s:String[]" Default="[{&quot;true&quot;,&quot;false&quot;}]" Name="ValidEnabled" />
+                                    </Sequence.Variables>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <If Condition="[Not ValidEnabled.Contains(RO(&quot;Enabled&quot;).ToString.ToLower)]" DisplayName="If Not ValidEnabled" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_24">
+                                      <If.Then>
+                                        <Throw DisplayName="Throw InvalidOptionType" Exception="[New SystemException(&quot;Response Option Enabled in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be among the valid boolean TRUE or FALSE.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_26" />
+                                      </If.Then>
+                                    </If>
+                                  </Sequence>
+                                </Sequence>
+                              </ActivityAction>
+                            </ui:ForEach.Body>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:ForEach>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Throw DisplayName="Throw ResponseOptionsEmpty" Exception="[New SystemException(&quot;Response Options in &quot; + Response(&quot;SessionName&quot;).ToString + &quot; must not be empty.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_22" />
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </If.Then>
+              </If>
+            </Sequence>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ForEachRow>
+  </Sequence>
+</Activity>

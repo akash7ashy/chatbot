@@ -1,0 +1,54 @@
+<Activity xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+          xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+          xmlns:s="clr-namespace:System;assembly=mscorlib" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+          mc:Ignorable="s">
+  <Sequence DisplayName="Main Sequence">
+    <!-- Load Knowledge Base -->
+    <Assign x:TypeArguments="s:String" To="[knowledgeBasePath]" Value="'knowledge_base.json'" />
+    <InvokeMethod DisplayName="Load Knowledge Base" MethodName="ReadAllText" TargetType="System.IO.File">
+      <InvokeMethod.Parameters>
+        <InArgument x:TypeArguments="s:String" Expression="[knowledgeBasePath]" />
+      </InvokeMethod.Parameters>
+      <OutArgument x:TypeArguments="s:String" Expression="[knowledgeBaseContent]" />
+    </InvokeMethod>
+    <Assign x:TypeArguments="Newtonsoft.Json.Linq.JObject" To="[knowledgeBase]" Value="[Newtonsoft.Json.Linq.JObject.Parse(knowledgeBaseContent)]" />
+
+    <!-- User Input -->
+    <InputDialog DisplayName="Get User Input" Result="[userInput]" Caption="Chatbot" Label="You:" />
+
+    <!-- Find Best Match -->
+    <Assign x:TypeArguments="s:String" To="[bestMatch]" Value="[FindBestMatch(userInput, knowledgeBase)]" />
+    
+    <!-- Get Answer -->
+    <If Condition="[String.IsNullOrEmpty(bestMatch)]">
+      <Then>
+        <!-- Ask for New Answer -->
+        <InputDialog DisplayName="Ask for New Answer" Result="[newAnswer]" Caption="Chatbot" Label="I don't know the answer. Can you teach me?" />
+        <If Condition="[newAnswer.ToLower() != 'skip']">
+          <Then>
+            <Assign x:TypeArguments="Newtonsoft.Json.Linq.JObject" To="[newQuestion]" Value="[New Newtonsoft.Json.Linq.JObject(Newtonsoft.Json.Linq.JProperty('question', userInput), Newtonsoft.Json.Linq.JProperty('answer', newAnswer))]" />
+            <Assign x:TypeArguments="Newtonsoft.Json.Linq.JArray" To="[knowledgeBase('questions')]" Value="[knowledgeBase('questions').Add(newQuestion)]" />
+            <InvokeMethod DisplayName="Save Knowledge Base" MethodName="WriteAllText" TargetType="System.IO.File">
+              <InvokeMethod.Parameters>
+                <InArgument x:TypeArguments="s:String" Expression="[knowledgeBasePath]" />
+                <InArgument x:TypeArguments="s:String" Expression="[knowledgeBase.ToString()]" />
+              </InvokeMethod.Parameters>
+            </InvokeMethod>
+            <Assign x:TypeArguments="s:String" To="[botResponse]" Value="'Thank you! I learned a new response!'" />
+          </Then>
+          <Else>
+            <Assign x:TypeArguments="s:String" To="[botResponse]" Value="'Skipped learning new response.'" />
+          </Else>
+        </If>
+      </Then>
+      <Else>
+        <Assign x:TypeArguments="s:String" To="[botResponse]" Value="[knowledgeBase('questions').First(Function(q) q('question').ToString() = bestMatch)('answer').ToString()]" />
+      </Else>
+    </If>
+
+    <!-- Display Bot Response -->
+    <MessageBox DisplayName="Bot Response" Text="[botResponse]" />
+  </Sequence>
+</Activity>

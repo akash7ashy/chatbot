@@ -1,0 +1,215 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="TemplateObject_Options" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sd2="clr-namespace:System.Data;assembly=System.Data.DataSetExtensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sd3="clr-namespace:System.Diagnostics;assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sd4="clr-namespace:System.Drawing;assembly=System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:si="clr-namespace:System.IO;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_ResponseName" Type="InArgument(x:String)" />
+    <x:Property Name="in_ResponseType" Type="InArgument(x:String)" />
+    <x:Property Name="in_ResponseOptions" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="io_TemplateObjectResponse" Type="InOutArgument(njl:JObject)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>786,2492</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="From the ResponseOptions sheet, compile all responses with the same 'Name' and generate a list of formatted Responses specific to Option.&#xA;&#xA;Input:&#xA;- Config (Dictionary&lt;String,Object&gt;)&#xA;- ResponseName (String)&#xA;- ResponseOptions (DataTable) - Refer to Template File's ResponseOptions&#xA;- ResponseType (String)&#xA;&#xA;Input/Output:&#xA;- TemplateObjectResponse (JObject) - the current Response's Object of Responses.&#xA;" DisplayName="Options" sap:VirtualizedContainerService.HintSize="766,2432" sap2010:WorkflowViewState.IdRef="Sequence_14">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataRow[]" Name="DRA_ResponseOptions" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign DisplayName="Assign Selected Options" sap:VirtualizedContainerService.HintSize="724,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataRow[]">[DRA_ResponseOptions]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataRow[]">[in_ResponseOptions.Select("["+in_ResponseOptions.Columns(0).ColumnName+"]='"+in_ResponseName+"'")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If Condition="[DRA_ResponseOptions.Count &gt; 0]" DisplayName="If Options Not Empty" sap:VirtualizedContainerService.HintSize="724,2048" sap2010:WorkflowViewState.IdRef="If_4">
+      <If.Then>
+        <Sequence DisplayName="Parse Option" sap:VirtualizedContainerService.HintSize="479,1900" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="scg:List(njl:JObject)" Name="List_ResponseOptions" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Init List of Options" sap:VirtualizedContainerService.HintSize="437,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(njl:JObject)">[List_ResponseOptions]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(njl:JObject)">[New List(Of JObject)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For Each ResponseOption" sap:VirtualizedContainerService.HintSize="437,1536" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[DRA_ResponseOptions]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="DRO" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="401,1402" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="njl:JObject" Name="Object_ResponseOption" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="359,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="njl:JObject">[New JObject()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Validate_Option workflow" sap:VirtualizedContainerService.HintSize="359,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Source/Utilities/Framework/Facebook/Page/ResponseTemplate/Validator/Validate_Option.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ResponseType">[in_ResponseType]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ResponseName">[in_ResponseName]</InArgument>
+                      <InArgument x:TypeArguments="sd:DataRow" x:Key="io_ResponseOption">[DRO]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <InvokeMethod DisplayName="Type To ResponseOption" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_11" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">type</InArgument>
+                    <InArgument x:TypeArguments="njl:JToken">[DRO("Type").ToString]</InArgument>
+                  </InvokeMethod>
+                  <InvokeMethod DisplayName="Title To ResponseOption" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_8" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">title</InArgument>
+                    <InArgument x:TypeArguments="njl:JToken">[DRO("Title").ToString]</InArgument>
+                  </InvokeMethod>
+                  <InvokeMethod DisplayName="Enabled To ResponseOption" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_9" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">enabled</InArgument>
+                    <InArgument x:TypeArguments="njl:JToken">[Convert.ToBoolean(DRO("Enabled").ToString)]</InArgument>
+                  </InvokeMethod>
+                  <InvokeMethod DisplayName="Hidden To ResponseOption" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_10" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">hidden</InArgument>
+                    <InArgument x:TypeArguments="njl:JToken">[Convert.ToBoolean(DRO("Hidden").ToString)]</InArgument>
+                  </InvokeMethod>
+                  <InvokeMethod DisplayName="Payload To ResponseOption" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_16" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">payload</InArgument>
+                    <InArgument x:TypeArguments="njl:JToken">[DRO("Payload").ToString]</InArgument>
+                  </InvokeMethod>
+                  <Switch x:TypeArguments="x:String" DisplayName="Switch OptionType" Expression="[DRO(&quot;Type&quot;).ToString]" sap:VirtualizedContainerService.HintSize="359,51" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                    <Switch.Default>
+                      <Sequence DisplayName="Postback" sap:VirtualizedContainerService.HintSize="240,256" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <InvokeMethod DisplayName="Synonym To ResponseOption" sap:VirtualizedContainerService.HintSize="218,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_17" MethodName="Add">
+                          <InvokeMethod.TargetObject>
+                            <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                          </InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="x:String">synonym</InArgument>
+                          <InArgument x:TypeArguments="njl:JToken">[New JArray(DRO("Synonym").ToString.Split(","c))]</InArgument>
+                        </InvokeMethod>
+                      </Sequence>
+                    </Switch.Default>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence x:Key="web_url" DisplayName="Web URL" sap:VirtualizedContainerService.HintSize="240,772" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <InvokeMethod DisplayName="WebUrl To ResponseOption" sap:VirtualizedContainerService.HintSize="218,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_12" MethodName="Add">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                        </InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="x:String">url</InArgument>
+                        <InArgument x:TypeArguments="njl:JToken">[DRO("WebUrl").ToString]</InArgument>
+                      </InvokeMethod>
+                      <InvokeMethod DisplayName="FallbackUrl To ResponseOption" sap:VirtualizedContainerService.HintSize="218,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_13" MethodName="Add">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                        </InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="x:String">fallbackUrl</InArgument>
+                        <InArgument x:TypeArguments="njl:JToken">[DRO("FallbackUrl").ToString]</InArgument>
+                      </InvokeMethod>
+                      <InvokeMethod DisplayName="Webview Size Ratio To ResponseOption" sap:VirtualizedContainerService.HintSize="218,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_14" MethodName="Add">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                        </InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="x:String">webviewSizeRatio</InArgument>
+                        <InArgument x:TypeArguments="njl:JToken">[DRO("WebviewSizeRatio").ToString]</InArgument>
+                      </InvokeMethod>
+                      <InvokeMethod DisplayName="Webview Size Ratio To ResponseOption" sap:VirtualizedContainerService.HintSize="218,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_15" MethodName="Add">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                        </InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="x:String">messengerExtension</InArgument>
+                        <InArgument x:TypeArguments="njl:JToken">[DRO("MessengerExtension").ToString]</InArgument>
+                      </InvokeMethod>
+                    </Sequence>
+                  </Switch>
+                  <InvokeMethod DisplayName="Add to List Of Options" sap:VirtualizedContainerService.HintSize="359,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_18" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="scg:List(njl:JObject)">[List_ResponseOptions]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="njl:JObject">[Object_ResponseOption]</InArgument>
+                  </InvokeMethod>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+          </ui:ForEach>
+          <InvokeMethod DisplayName="Payload To ResponseOption" sap:VirtualizedContainerService.HintSize="397,132" sap2010:WorkflowViewState.IdRef="InvokeMethod_19" MethodName="Add">
+            <InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="njl:JObject">[io_TemplateObjectResponse]</InArgument>
+            </InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="x:String">options</InArgument>
+            <InArgument x:TypeArguments="njl:JToken">[New JArray(List_ResponseOptions)]</InArgument>
+          </InvokeMethod>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Throw DisplayName="Throw EmptyOptions" Exception="[New SystemException(&quot;Response Options of &quot; + in_ResponseName + &quot; should not be empty.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
