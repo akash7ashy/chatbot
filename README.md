@@ -61,6 +61,17 @@ streamlit run app.py
 ## Interact with the Chatbot
 Open the web browser and navigate to the local URL provided by Streamlit (usually http://localhost:8501).
 
+## Tech Stack Used
+
+- **Python**: Core programming language for developing the chatbot.
+- **Streamlit**: Framework used to create the web application.
+- **JSON**: Format for storing the knowledge base data.
+- **Difflib**: Python library for finding the closest matches to user questions.
+- **NLTK**: Natural Language Toolkit for advanced language processing.
+- **XML**: Format for UiPath service integration.
+
+---
+
 Contact
 For further assistance, please contact:
 
