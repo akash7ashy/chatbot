@@ -29,4 +29,36 @@ This README provides an overview of the custom chatbot designed for PSNA College
 git clone <repository-url>
 cd <repository-directory>
 
+```bash
+pip install streamlit
+
+## Set Up the Knowledge Base
+Ensure you have a 'knowledge_base.json file' in the project directory with the following structure:
+
+```bash
+{
+  "courses": [
+    {
+      "course_name": "Course Title",
+      "schedule": "Course Schedule",
+      "details": "Additional Information"
+    }
+  ],
+  "staff": [
+    {
+      "name": "Staff Member",
+      "position": "Position",
+      "contact": "Contact Details"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
 
